@@ -1,5 +1,4 @@
-class Rook
-
+class King
 	attr_reader :color
 
 	def initialize(color)
@@ -9,13 +8,17 @@ class Rook
 	def move_dirs
 		[
 			[0,  1],
-			[0, -1],
 			[1,  0],
-			[-1, 0]
+			[1,  1],
+			[0, -1],
+			[1, -1],
+			[-1, 1],
+			[-1, -1],
+			[-1, 0],
 		]
 	end
 
 	def to_s
-		color == :black ? "♜" : "♖"
+		color == :black ? "♚" : "♔"
 	end
 end

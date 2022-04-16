@@ -2,8 +2,7 @@ class Pawn
 
 	attr_reader :color
 
-	def initialize(location, color)
-		@location = location
+	def initialize(color)
 		@color = color
 	end
 
@@ -15,17 +14,17 @@ class Pawn
 		# ]
 	end
 
-	def starting_pos?
-		row == 1 || row == 6
-	end
+	# def starting_pos?
+	# 	row == 1 || row == 6
+	# end
 
-	def row
-		@location.first
-	end
+	# def row
+	# 	@location.first
+	# end
 
-	def column
-		@location.last
-	end
+	# def column
+	# 	@location.last
+	# end
 
 	def to_s
 		color == :black ? "♟" : "♙"

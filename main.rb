@@ -13,8 +13,19 @@ require_relative './lib/rook.rb'
 # puts b.in_bounds?([1, 2])
 # puts b.in_bounds?([10, 0])
 
-pawn = Pawn.new([1, 0], :black)
-puts pawn
+b = Board.new
+b[[1,0]] = Pawn.new([1, 0], :black)
+b[[1,1]] = Pawn.new([1, 0], :black)
+b[[1,2]] = Pawn.new([1, 0], :white)
+b[[1,3]] = Pawn.new([1, 0], :black)
+b[[1,4]] = Pawn.new([1, 0], :black)
+b[[1,5]] = Pawn.new([1, 0], :black)
+b[[1,6]] = Pawn.new([1, 0], :black)
+b[[1,7]] = Pawn.new([1, 0], :black)
 
-pawn2 = Pawn.new([1,1], :white)
-puts pawn2
+puts b.grid
+# pawn = Pawn.new([1, 0], :black)
+# puts pawn
+
+# pawn2 = Pawn.new([1,1], :white)
+# puts pawn2
