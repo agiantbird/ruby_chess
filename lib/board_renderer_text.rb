@@ -6,11 +6,17 @@ class BoardRendererText
 
 	def render
 		8.times do |r|
-			puts "------------"
+			puts "---------------"
 			8.times do |c|
-				print board[[r, c]]
+				piece = board[[r, c]]
+				if piece.nil?
+					print "  "
+				else
+					print "#{board[[r, c]]} "
+				end
 			end
 			puts ""
 		end
+		puts "---------------"
 	end
 end
