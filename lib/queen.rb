@@ -1,10 +1,4 @@
-class Queen
-
-	attr_reader :color
-
-	def initialize(color)
-		@color = color
-	end
+class Queen < Piece
 
 	def move_dirs
 		[

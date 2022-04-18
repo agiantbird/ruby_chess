@@ -4,21 +4,18 @@ require_relative './knight.rb'
 require_relative './pawn.rb'
 require_relative './queen.rb'
 require_relative './rook.rb'
+require_relative './piece.rb'
 
 class Board
 	attr_reader :grid
 
-	# factor method
+	# factory method
 	def self.start_chess
 		board = self.new
 		8.times do |c|
 			board[[1, c]] = Pawn.new(:black)
 			board[[6, c]] = Pawn.new(:white)
 		end
-		# board[[0,0]] = Rook.new(:black)
-		# board[[0,7]] = Rook.new(:black)
-		# board[[7,0]] = Rook.new(:white)
-		# board[[7,7]] = Rook.new(:white)
 
 		[[0, :black], [7, :white]].each do |(r, color)|
 			board[[r, 0]] = Rook.new(color)
