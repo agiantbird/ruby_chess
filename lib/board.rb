@@ -13,23 +13,24 @@ class Board
 	def self.start_chess
 		board = self.new
 		8.times do |c|
-			board[[1, c]] = Pawn.new(:black)
-			board[[6, c]] = Pawn.new(:white)
+			# (board, color, location)
+			board[[1, c]] = Pawn.new(board, :black, [1, c])
+			board[[6, c]] = Pawn.new(board, :white, [6, c])
 		end
 
 		[[0, :black], [7, :white]].each do |(r, color)|
-			board[[r, 0]] = Rook.new(color)
-			board[[r, 7]] = Rook.new(color)
-			board[[r, 1]] = Knight.new(color)
-			board[[r, 6]] = Knight.new(color)
-			board[[r, 2]] = Bishop.new(color)
-			board[[r, 5]] = Bishop.new(color)
+			board[[r, 0]] = Rook.new(board, color, [r, 0])
+			board[[r, 7]] = Rook.new(board, color, [r, 7])
+			board[[r, 1]] = Knight.new(board, color, [r, 1])
+			board[[r, 6]] = Knight.new(board, color, [r, 6])
+			board[[r, 2]] = Bishop.new(board, color, [r, 2])
+			board[[r, 5]] = Bishop.new(board, color, [r, 5])
 		end
 
-		board[[0, 3]] = Queen.new(:black)
-		board[[0, 4]] = King.new(:black)
-		board[[7, 3]] = Queen.new(:white)
-		board[[7, 4]] = King.new(:white)
+		board[[0, 3]] = Queen.new(board, :black, [0, 3])
+		board[[0, 4]] = King.new(board, :black, [0, 4])
+		board[[7, 3]] = Queen.new(board, :white, [7, 3])
+		board[[7, 4]] = King.new(board, :white, [7, 4])
 
 		# make sure to return the actual instance
 		board
