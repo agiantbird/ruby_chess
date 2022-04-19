@@ -2,12 +2,15 @@ require_relative './lib/pieces.rb'
 require_relative './lib/board.rb'
 require_relative './lib/board_renderer_text.rb'
 
-b = Board.start_chess
+# b = Board.start_chess
 
-text_board = BoardRendererText.new(b)
-puts text_board.render
-# pawn = Pawn.new([1, 0], :black)
-# puts pawn
+# text_board = BoardRendererText.new(b)
+# puts text_board.render
 
-# pawn2 = Pawn.new([1,1], :white)
-# puts pawn2
+b = Board.new
+b[[0, 2]] = King.new(b, :black, [2, 2])
+p b[[2, 2]].available_moves
+# b[[0, 1]] = Pawn.new(b, :white)
+
+# piece = b[[0,0]]
+# puts piece.enemy?([0,1])
