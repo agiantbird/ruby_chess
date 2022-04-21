@@ -10,6 +10,8 @@ text_board = BoardRendererText.new(b)
 b[[2, 2]] = Pawn.new(b, :white, [2,2])
 b[[2, 0]] = Pawn.new(b, :white, [2,0])
 p b[[1,2]].available_moves
+
+b.move_piece([1, 1], [4, 4])
 puts text_board.render
 
 
