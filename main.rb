@@ -5,12 +5,19 @@ require_relative './lib/board.rb'
 require_relative './lib/player.rb'
 require_relative './lib/game.rb'
 
+b = Board.new
+b[[1,1]] = King.new(b, :black, [1,1])
+b[[2,2]] = Queen.new(b, :white, [2,2])
+b[[6,6]] = King.new(b, :white, [6,6])
 
-board = Board.start_chess
-g = Game.new(
-	board,
-	Player.new(:black),
-	Player.new(:white),
-	BoardRendererText
-)
-g.play
+puts b.in_check?(:black)
+puts b.in_check?(:white)
+
+# board = Board.start_chess
+# g = Game.new(
+# 	board,
+# 	Player.new(:black),
+# 	Player.new(:white),
+# 	BoardRendererText
+# )
+# g.play

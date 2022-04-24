@@ -69,6 +69,27 @@ class Board
 		grid[row][column].nil?
 	end
 
+	def in_check?(color)
+		# determine king position
+		king_position = pieces.find {|p| p.color == color && p.is_a?(King)}.location
+		# loop over all pieces of the opposite color
+		opposite_color_pieces = pieces.select { |p| p.color != color }
+
+		opposite_color_pieces.each do |piece|
+			# if any piece has an available move with the king of the
+			# color's position, then color is in check
+			if piece.available_moves.include?(king_position)
+				return true
+			end
+		end
+
+		false
+	end
+
+	def pieces
+		grid.flatten.reject { |piece| piece.nil? }
+	end
+
 	def move_piece(start_position, end_position)
 		# validate that end pos is in available moves
 		piece = self[start_position]
