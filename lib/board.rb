@@ -71,7 +71,13 @@ class Board
 
 	def in_check?(color)
 		# determine king position
-		king_position = pieces.find {|p| p.color == color && p.is_a?(King)}.location
+		king = pieces.find {|p| p.color == color && p.is_a?(King)}
+
+		if king.nil?
+			raise "No king found."
+		end
+
+		king_position = king.location
 		# loop over all pieces of the opposite color
 		opposite_color_pieces = pieces.select { |p| p.color != color }
 
@@ -86,16 +92,25 @@ class Board
 		false
 	end
 
+	def checkmate?(color)
+		return false if !in_check?(color)
+
+		color_pieces = pieces.select {|p| p.color == color}
+
+		color_pieces.any? { |piece| piece.safe_moves.empty? }
+
+	end
+
 	def pieces
 		grid.flatten.reject { |piece| piece.nil? }
 	end
 
 	def move_piece(start_position, end_position)
-		# validate that end pos is in available moves
+		# validate that end pos is in safe moves
 		piece = self[start_position]
 		if !piece.available_moves.include?(end_position)
 			raise InvalidMoveError.new(
-				"End position (#{end_position}) not in available moves: #{piece.available_moves}"
+				"End position (#{end_position}) not in available moves: #{piece.safe_moves}"
 			)
 		end
 
@@ -104,12 +119,26 @@ class Board
 				'End position not in bounds'
 			)
 		end
+
+		move_piece!(start_position, end_position)
+	end
+
+	def move_piece!(start_position, end_position)
 		# remove piece from current location
-		self[start_position] = nil
 		# place piece on board at new location
-		self[end_position] = piece
+		self[start_position], self[end_position] = nil, self[start_position]
 		# update piece's internal location with end position
-		piece.location = end_position
+		self[end_position].location = end_position
+	end
+
+	def deep_duplicate
+		new_board = Board.new
+		pieces.each do |piece|
+			new_piece = piece.class.new(new_board, piece.color, piece.location)
+			new_board[new_piece.location] = new_piece
+		end
+
+		new_board
 	end
 
 

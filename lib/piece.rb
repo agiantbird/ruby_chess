@@ -8,6 +8,23 @@ class Piece
 		@location = location
 	end
 
+	# available moves that don't move us into check
+	def safe_moves
+		moves = []
+		# look at available moves
+		available_moves.each do |move|
+			#try the move
+			new_board = board.deep_duplicate
+			new_board.move_piece!(location, move)
+			# if not in check, add the move
+			if !new_board.in_check?(color)
+					moves << move
+			end
+		end
+
+		moves
+	end
+
 	def enemy?(location)
 		!board[location].nil? && board[location].color != color
 	end
