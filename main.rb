@@ -14,19 +14,24 @@ require_relative './lib/game.rb'
 # puts b.in_check?(:white)
 
 b = Board.new
-b [[0, 0]] = King.new(b, :black, [0,0])
-
+b [[1, 1]] = King.new(b, :black, [1,1])
 b [[6, 6]] = King.new(b, :white, [6,6])
 
-b [[3, 0]] = Rook.new(b, :white, [3,0])
-b [[3, 1]] = Rook.new(b, :white, [3,1])
+b [[3, 2]] = Rook.new(b, :white, [3,2])
+b [[4, 2]] = Rook.new(b, :white, [4,2])
 
 puts b.checkmate?(:black)
+
 # board = Board.start_chess
-# g = Game.new(
-# 	board,
-# 	Player.new(:black),
-# 	Player.new(:white),
-# 	BoardRendererText
-# )
-# g.play
+g = Game.new(
+	b,
+	Player.new(:black),
+	Player.new(:white),
+	BoardRendererText
+)
+g.play
+
+
+
+
+

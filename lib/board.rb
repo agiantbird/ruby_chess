@@ -108,7 +108,7 @@ class Board
 	def move_piece(start_position, end_position)
 		# validate that end pos is in safe moves
 		piece = self[start_position]
-		if !piece.available_moves.include?(end_position)
+		if !piece.safe_moves.include?(end_position)
 			raise InvalidMoveError.new(
 				"End position (#{end_position}) not in available moves: #{piece.safe_moves}"
 			)
