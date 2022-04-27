@@ -1,5 +1,5 @@
-class Queen < Piece
-	include Slideable
+class King < Piece
+	include Stepable
 
 	def move_dirs
 		[
@@ -15,6 +15,6 @@ class Queen < Piece
 	end
 
 	def to_s
-		color == :black ? "♛" : "♕"
+		color == :black ? "♚" : "♔"
 	end
 end

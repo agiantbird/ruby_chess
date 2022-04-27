@@ -44,7 +44,7 @@ class Game
 		loop do 
 			puts "Select a piece to move: "
 			start_position = current_player.get_position
-			if !board[start_position].nil? && board[start_position].color == current_player.color
+			if board[start_position].color == current_player.color
 				break
 			end
 			puts "Did not select a #{current_player.color} piece"
@@ -68,10 +68,3 @@ class Game
 		end
 	end
 end
-
-
-
-
-
-
-

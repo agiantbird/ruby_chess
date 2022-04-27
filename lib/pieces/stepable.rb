@@ -9,8 +9,6 @@ module Stepable
 			current_col += diff_col
 			loc = [current_row, current_col]
 
-			#next if !board.in_bounds?(loc)
-
 			if legal_move?(loc)
 				moves.push(loc)
 			end

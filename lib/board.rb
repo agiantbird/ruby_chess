@@ -1,10 +1,10 @@
-require_relative './bishop.rb'
-require_relative './king.rb'
-require_relative './knight.rb'
-require_relative './pawn.rb'
-require_relative './queen.rb'
-require_relative './rook.rb'
-require_relative './piece.rb'
+require_relative './pieces/bishop.rb'
+require_relative './pieces/king.rb'
+require_relative './pieces/knight.rb'
+require_relative './pieces/pawn.rb'
+require_relative './pieces/queen.rb'
+require_relative './pieces/rook.rb'
+require_relative './pieces/piece.rb'
 
 class Board
 	attr_reader :grid
@@ -18,27 +18,24 @@ class Board
 			board[[6, c]] = Pawn.new(board, :white, [6, c])
 		end
 
-		[[0, :black], [7, :white]].each do |(r, color)|
-			board[[r, 0]] = Rook.new(board, color, [r, 0])
-			board[[r, 7]] = Rook.new(board, color, [r, 7])
-			board[[r, 1]] = Knight.new(board, color, [r, 1])
-			board[[r, 6]] = Knight.new(board, color, [r, 6])
-			board[[r, 2]] = Bishop.new(board, color, [r, 2])
-			board[[r, 5]] = Bishop.new(board, color, [r, 5])
-		end
+		[ Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook].
+			each_with_index do |piece_klass, column|
+				[[0, :black], [7, :white]].each do |(row, color)|
+					location = [row, column]
+					board[location] = piece_klass.new(
+						board,
+						color,
+						location
+					)
+				end
+			end
 
-		board[[0, 3]] = Queen.new(board, :black, [0, 3])
-		board[[0, 4]] = King.new(board, :black, [0, 4])
-		board[[7, 3]] = Queen.new(board, :white, [7, 3])
-		board[[7, 4]] = King.new(board, :white, [7, 4])
-
-		# make sure to return the actual instance
 		board
 	end
 
 	def initialize
 		# create an array of 8 empty arrays
-		@grid = Array.new(8) { Array.new(8) }
+		@grid = Array.new(8) { Array.new(8, NullPiece.instance) }
 	end
 
 	# operator overloading
@@ -66,7 +63,7 @@ class Board
 
 	def empty?(location)
 		row, column = location
-		grid[row][column].nil?
+		grid[row][column] == NullPiece.instance
 	end
 
 	def in_check?(color)
@@ -102,7 +99,7 @@ class Board
 	end
 
 	def pieces
-		grid.flatten.reject { |piece| piece.nil? }
+		grid.flatten.reject { |piece| piece.is_a?(NullPiece) }
 	end
 
 	def move_piece(start_position, end_position)
@@ -126,7 +123,7 @@ class Board
 	def move_piece!(start_position, end_position)
 		# remove piece from current location
 		# place piece on board at new location
-		self[start_position], self[end_position] = nil, self[start_position]
+		self[start_position], self[end_position] = NullPiece.instance, self[start_position]
 		# update piece's internal location with end position
 		self[end_position].location = end_position
 	end
@@ -140,13 +137,4 @@ class Board
 
 		new_board
 	end
-
-
 end
-
-
-
-
-
-
-
